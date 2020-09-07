@@ -1,5 +1,5 @@
 {
-  "name": "newBrat",
+  "name": "mostest",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.12.0",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
+    "npm": "^6.14.8",
     "nuxt": "^2.14.0"
   },
   "devDependencies": {

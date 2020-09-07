@@ -31,11 +31,23 @@
 </template>
 <script>
 export default {
+  updated(){
+// alert('data changed!');
+  },
+  beforeCreate(){
+    
+  },
+  beforeDestroy(){
+    
+  },
+  name:'x-date-picker',
   data: () => ({
     date: new Date().toISOString().substr(0, 10),
+    // date:'',
     menu: false,
     modal: false,
     menu2: false,
+    
   }),
   
   methods: {
@@ -46,7 +58,9 @@ export default {
   ok(date){
     // var list = this.date
     console.log(date);
+    this.menu2 = false
     this.$store.commit('setDate',date)
+    // this.$emit("setParentComponentDetails",date);  
   }
 }
 }

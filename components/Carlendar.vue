@@ -62,7 +62,7 @@
               </v-btn>
               <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
               <v-spacer></v-spacer>
-              <v-btn icon>
+              <v-btn @click="deleteEvent(selectedEvent.name,selectedEvent.start,selectedEvent.end)" icon>
                 <v-icon>mdi-heart</v-icon>
               </v-btn>
               <v-btn icon>
@@ -70,7 +70,7 @@
               </v-btn>
             </v-toolbar>
             <v-card-text>
-              <span v-html="selectedEvent.details"></span>
+              <span></span>
             </v-card-text>
             <v-card-actions>
               <v-btn text color="secondary" @click="selectedOpen = false">Cancel</v-btn>
@@ -95,6 +95,7 @@ export default {
     selectedEvent: {},
     selectedElement: null,
     selectedOpen: false,
+    delete: false,
     events: [],
     colors: [
       'blue',
@@ -116,10 +117,40 @@ export default {
       'Party',
     ],
   }),
-  mounted() {
-    this.$refs.calendar.checkChange()
-  },
+  // mounted() {
+  //   this.$store.subscribe((mutation, state) => {
+  //     // console.log(mutation,"MUTATION");
+  //     switch (mutation.type) {
+  //       case 'setMessage':
+  //         console.log("MUTATUON",this.$store.state.dates);
+  //         this.events.push({
+  //           name: this.$store.state.message,
+  //           start: this.$store.state.dates[0],
+  //           end: this.$store.state.dates[1],
+  //           color: 'blue',
+  //           timed: true,
+  //         })
+  //         break
+  //     }
+  //   })
+  // },
+  updated() {},
   methods: {
+    deleteEvent(eventName,start,end) {
+      console.log(eventName,start,end)
+      this.events.splice(this.events.findIndex(e => e.name === eventName && e.start === start && e.end === end),1);
+      this.selectedOpen = false
+      // this.events.slice(this.events.findIndex(e => e.name === eventName && e.start === start && e.end === end),1)
+    },
+    greet() {
+      this.events.push({
+        name: this.$store.state.message,
+        start: this.$store.state.dates[0],
+        end: this.$store.state.dates[1],
+        color: 'blue',
+        timed: true,
+      })
+    },
     viewDay({ date }) {
       this.focus = date
       this.type = 'day'
@@ -131,6 +162,7 @@ export default {
       this.focus = ''
       this.type = 'month'
     },
+
     prev() {
       this.$refs.calendar.prev()
     },
@@ -142,9 +174,10 @@ export default {
         this.selectedEvent = event
         this.selectedElement = nativeEvent.target
         setTimeout(() => (this.selectedOpen = true), 10)
+        console.log(event,'nativeEvent')
       }
-
       if (this.selectedOpen) {
+        console.log('event')
         this.selectedOpen = false
         setTimeout(open, 10)
       } else {

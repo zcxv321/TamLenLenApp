@@ -1,6 +1,7 @@
 export const state = () => ({
     counter: 0,
-    dates:[]
+    dates:[],
+    message:''
   })
   
   export const mutations = {
@@ -8,6 +9,9 @@ export const state = () => ({
       state.counter++
     },
     setDate(state,list){
-        state.dates.push(list)
+        state.dates = list
+    },
+    setMessage(state,message){
+      state.message = message
     }
   }

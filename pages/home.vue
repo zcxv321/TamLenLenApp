@@ -17,7 +17,8 @@
           <SearchInput />
         </v-col>
         <v-col md="2" sm="6" class="px-2" cols="12">
-          <datepicker />
+          <!-- @setParentComponentDetails="setDetailsForComponent" -->
+          <DatePicker/>
         </v-col>
         <!-- <v-col md="2" sm="6" class="px-2" cols="12">
           <datepicker  />
@@ -31,28 +32,49 @@
       <v-row>
         <v-col>
           <v-text-field v-model="message" label="Solo" solo></v-text-field>
-          <label >{{message}}</label>
+          <label>{{message}}</label>
         </v-col>
       </v-row>
-      <Carlendar />
+      <Carlendar ref="myLineChart" />
     </v-container>
   </div>
 </template>
 
 <script>
+import Carlendar from "~/components/Carlendar"
+//  import mos-date from "~/components/DatePicker";
 export default {
-  layout: 'home',
 
+  head() {
+    return { title: this.title }
+  },
+  layout: 'home',
+  components: {
+    // DatePicker
+  },
+  watch: {
+ 
+  },
   data() {
     return {
+      title: 'hello',
       message: '',
     }
   },
-  methods:{
-    update:function(){
-      console.log( this.message)
-    }
-  }
+
+  methods: {
+    
+    update: function () {
+      this.$store.commit('setMessage', this.message)
+      this.message = ''
+      console.log(this.$store.state.dates, 'sdgdfgsdfgsdfgsdfgsdfgsdfg')
+      this.$refs.myLineChart.greet();
+    },
+    //  setDetailsForComponent(p1) {
+    //   console.log("Calling from child component:"+p1+":");
+    //   this.$store.commit('setMessage', p1)
+    //   }
+  },
 }
 </script>
 

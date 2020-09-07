@@ -72,7 +72,7 @@ export default {
   //     console.log(vm.$vuetify.theme.dark)
   //   },
   mounted() {
-    console.log(localStorage.theme)
+    // console.log(localStorage.theme)
     if (localStorage.theme) {
       this.switch1 = localStorage.theme === 'true'
     }
